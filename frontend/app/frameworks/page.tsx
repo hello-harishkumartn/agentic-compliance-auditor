@@ -1,0 +1,5 @@
+import { Header, Empty, Pill } from "@/components/ui";
+import { getJSON } from "@/lib/api";
+import { UploadButton } from "@/components/upload-button";
+type Framework={id:string;name:string;version:string;source_type:string;description:string;created_at:string};
+export default async function Page(){const items=await getJSON<Framework[]>("/api/frameworks",[]);return <><Header eyebrow="Knowledge base" title="Frameworks" description="Versioned regulatory and control sources. Synthetic and real sources are labelled explicitly." action={<UploadButton resource="framework"/>}/><div className="grid gap-4 lg:grid-cols-2">{items.map(x=><article className="card p-6" key={x.id}><div className="flex items-start justify-between"><div><p className="eyebrow">Version {x.version}</p><h2 className="mt-2 text-xl font-semibold">{x.name}</h2></div><Pill value={x.source_type}/></div><p className="mt-4 text-sm leading-6 text-ink/60">{x.description}</p><p className="mt-5 text-xs text-ink/40">Created {new Date(x.created_at).toLocaleDateString()}</p></article>)}{!items.length&&<Empty/>}</div></>}

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #14211b; background: #f5f3ec; }
+::selection { background: #bfd8c8; }
+.grid-paper { background-image: radial-gradient(#b8c6bd 0.7px, transparent 0.7px); background-size: 18px 18px; }
+.eyebrow { @apply text-[11px] font-semibold uppercase tracking-[.16em] text-moss/70; }
+.card { @apply rounded-2xl border border-ink/10 bg-white shadow-card; }
+.table-cell { @apply px-5 py-4 text-sm border-b border-ink/10 align-top; }
+.status { @apply inline-flex rounded-full px-2.5 py-1 text-[11px] font-bold tracking-wide; }
+

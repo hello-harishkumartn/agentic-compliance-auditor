@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r backend/requirements.txt
+      - run: ruff check --config backend/pyproject.toml backend agents tools evals tests
+      - run: pytest --cov=backend --cov=agents --cov=tools --cov-report=term-missing
+        env: { AUTO_SEED: "false", DATABASE_URL: "sqlite:///./test.db" }
+      - run: python -m evals.runner
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend

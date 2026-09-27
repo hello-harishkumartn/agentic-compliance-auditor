@@ -1,0 +1,4 @@
+const nodes = ["Regulation", "Requirements", "Human gate", "Controls", "Evidence", "Assessment", "Verify", "Human gate", "Report"];
+export function Workflow({ active = 6 }: {active?: number}) {
+  return <div className="card overflow-hidden p-5"><div className="flex min-w-[800px] items-center">{nodes.map((node, index) => <div className="contents" key={`${node}-${index}`}><div className="flex w-24 flex-col items-center text-center"><div className={`grid h-9 w-9 place-items-center rounded-full border-2 text-xs font-bold ${index < active ? "border-moss bg-moss text-white" : index === active ? "border-amber bg-amber/15 text-ink" : "border-ink/15 bg-white text-ink/35"}`}>{index + 1}</div><span className="mt-2 text-[10px] font-semibold text-ink/60">{node}</span></div>{index < nodes.length - 1 && <div className={`mb-5 h-px flex-1 ${index < active ? "bg-moss" : "bg-ink/15"}`} />}</div>)}</div></div>
+}
